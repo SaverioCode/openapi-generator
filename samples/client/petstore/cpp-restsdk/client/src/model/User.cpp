@@ -19,7 +19,6 @@ namespace client {
 namespace model {
 
 
-
 User::User()
 {
     m_Id = 0L;
@@ -51,41 +50,48 @@ void User::validate()
 
 web::json::value User::toJson() const
 {
-
     web::json::value val = web::json::value::object();
     
     if(m_IdIsSet)
     {
         val[utility::conversions::to_string_t(U("id"))] = ModelBase::toJson(m_Id);
     }
+    
     if(m_UsernameIsSet)
     {
         val[utility::conversions::to_string_t(U("username"))] = ModelBase::toJson(m_Username);
     }
+    
     if(m_FirstNameIsSet)
     {
         val[utility::conversions::to_string_t(U("firstName"))] = ModelBase::toJson(m_FirstName);
     }
+    
     if(m_LastNameIsSet)
     {
         val[utility::conversions::to_string_t(U("lastName"))] = ModelBase::toJson(m_LastName);
     }
+    
     if(m_EmailIsSet)
     {
         val[utility::conversions::to_string_t(U("email"))] = ModelBase::toJson(m_Email);
     }
+    
     if(m_PasswordIsSet)
     {
         val[utility::conversions::to_string_t(U("password"))] = ModelBase::toJson(m_Password);
     }
+    
     if(m_PhoneIsSet)
     {
         val[utility::conversions::to_string_t(U("phone"))] = ModelBase::toJson(m_Phone);
     }
+    
     if(m_UserStatusIsSet)
     {
         val[utility::conversions::to_string_t(U("userStatus"))] = ModelBase::toJson(m_UserStatus);
     }
+    
 
     return val;
 }
@@ -278,12 +284,19 @@ bool User::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const uti
     return ok;
 }
 
+
+
+
+
+
 int64_t User::getId() const
 {
     return m_Id;
 }
 
+
 void User::setId(int64_t value)
+
 {
     m_Id = value;
     m_IdIsSet = true;
@@ -298,12 +311,18 @@ void User::unsetId()
 {
     m_IdIsSet = false;
 }
+
+
+
 utility::string_t User::getUsername() const
 {
     return m_Username;
 }
 
+
+
 void User::setUsername(const utility::string_t& value)
+
 {
     m_Username = value;
     m_UsernameIsSet = true;
@@ -318,12 +337,18 @@ void User::unsetUsername()
 {
     m_UsernameIsSet = false;
 }
+
+
+
 utility::string_t User::getFirstName() const
 {
     return m_FirstName;
 }
 
+
+
 void User::setFirstName(const utility::string_t& value)
+
 {
     m_FirstName = value;
     m_FirstNameIsSet = true;
@@ -338,12 +363,18 @@ void User::unsetFirstName()
 {
     m_FirstNameIsSet = false;
 }
+
+
+
 utility::string_t User::getLastName() const
 {
     return m_LastName;
 }
 
+
+
 void User::setLastName(const utility::string_t& value)
+
 {
     m_LastName = value;
     m_LastNameIsSet = true;
@@ -358,12 +389,18 @@ void User::unsetLastName()
 {
     m_LastNameIsSet = false;
 }
+
+
+
 utility::string_t User::getEmail() const
 {
     return m_Email;
 }
 
+
+
 void User::setEmail(const utility::string_t& value)
+
 {
     m_Email = value;
     m_EmailIsSet = true;
@@ -378,12 +415,18 @@ void User::unsetEmail()
 {
     m_EmailIsSet = false;
 }
+
+
+
 utility::string_t User::getPassword() const
 {
     return m_Password;
 }
 
+
+
 void User::setPassword(const utility::string_t& value)
+
 {
     m_Password = value;
     m_PasswordIsSet = true;
@@ -398,12 +441,18 @@ void User::unsetPassword()
 {
     m_PasswordIsSet = false;
 }
+
+
+
 utility::string_t User::getPhone() const
 {
     return m_Phone;
 }
 
+
+
 void User::setPhone(const utility::string_t& value)
+
 {
     m_Phone = value;
     m_PhoneIsSet = true;
@@ -418,12 +467,17 @@ void User::unsetPhone()
 {
     m_PhoneIsSet = false;
 }
+
+
+
 int32_t User::getUserStatus() const
 {
     return m_UserStatus;
 }
 
+
 void User::setUserStatus(int32_t value)
+
 {
     m_UserStatus = value;
     m_UserStatusIsSet = true;
@@ -438,6 +492,7 @@ void User::unsetUserStatus()
 {
     m_UserStatusIsSet = false;
 }
+
 }
 }
 }

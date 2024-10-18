@@ -19,7 +19,6 @@ namespace client {
 namespace model {
 
 
-
 Tag::Tag()
 {
     m_Id = 0L;
@@ -39,17 +38,18 @@ void Tag::validate()
 
 web::json::value Tag::toJson() const
 {
-
     web::json::value val = web::json::value::object();
     
     if(m_IdIsSet)
     {
         val[utility::conversions::to_string_t(U("id"))] = ModelBase::toJson(m_Id);
     }
+    
     if(m_NameIsSet)
     {
         val[utility::conversions::to_string_t(U("name"))] = ModelBase::toJson(m_Name);
     }
+    
 
     return val;
 }
@@ -122,12 +122,19 @@ bool Tag::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const util
     return ok;
 }
 
+
+
+
+
+
 int64_t Tag::getId() const
 {
     return m_Id;
 }
 
+
 void Tag::setId(int64_t value)
+
 {
     m_Id = value;
     m_IdIsSet = true;
@@ -142,12 +149,18 @@ void Tag::unsetId()
 {
     m_IdIsSet = false;
 }
+
+
+
 utility::string_t Tag::getName() const
 {
     return m_Name;
 }
 
+
+
 void Tag::setName(const utility::string_t& value)
+
 {
     m_Name = value;
     m_NameIsSet = true;
@@ -162,6 +175,7 @@ void Tag::unsetName()
 {
     m_NameIsSet = false;
 }
+
 }
 }
 }

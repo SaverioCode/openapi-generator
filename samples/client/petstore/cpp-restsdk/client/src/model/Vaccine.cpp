@@ -19,7 +19,6 @@ namespace client {
 namespace model {
 
 
-
 Vaccine::Vaccine()
 {
     m_dateIsSet = false;
@@ -38,17 +37,18 @@ void Vaccine::validate()
 
 web::json::value Vaccine::toJson() const
 {
-
     web::json::value val = web::json::value::object();
     
     if(m_dateIsSet)
     {
         val[utility::conversions::to_string_t(U("date"))] = ModelBase::toJson(m_date);
     }
+    
     if(m_BoosterRequiredIsSet)
     {
         val[utility::conversions::to_string_t(U("boosterRequired"))] = ModelBase::toJson(m_BoosterRequired);
     }
+    
 
     return val;
 }
@@ -121,12 +121,20 @@ bool Vaccine::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const 
     return ok;
 }
 
+
+
+
+
+
 std::shared_ptr<AnyType> Vaccine::getDate() const
 {
     return m_date;
 }
 
+
+
 void Vaccine::setDate(const std::shared_ptr<AnyType>& value)
+
 {
     m_date = value;
     m_dateIsSet = true;
@@ -141,12 +149,17 @@ void Vaccine::unsetdate()
 {
     m_dateIsSet = false;
 }
+
+
+
 bool Vaccine::isBoosterRequired() const
 {
     return m_BoosterRequired;
 }
 
+
 void Vaccine::setBoosterRequired(bool value)
+
 {
     m_BoosterRequired = value;
     m_BoosterRequiredIsSet = true;
@@ -161,6 +174,7 @@ void Vaccine::unsetBoosterRequired()
 {
     m_BoosterRequiredIsSet = false;
 }
+
 }
 }
 }

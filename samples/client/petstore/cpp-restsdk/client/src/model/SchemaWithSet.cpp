@@ -19,7 +19,6 @@ namespace client {
 namespace model {
 
 
-
 SchemaWithSet::SchemaWithSet()
 {
     m_CertificatesIsSet = false;
@@ -37,17 +36,18 @@ void SchemaWithSet::validate()
 
 web::json::value SchemaWithSet::toJson() const
 {
-
     web::json::value val = web::json::value::object();
     
     if(m_CertificatesIsSet)
     {
         val[utility::conversions::to_string_t(U("certificates"))] = ModelBase::toJson(m_Certificates);
     }
+    
     if(m_VaccinationBookIsSet)
     {
         val[utility::conversions::to_string_t(U("vaccinationBook"))] = ModelBase::toJson(m_VaccinationBook);
     }
+    
 
     return val;
 }
@@ -120,12 +120,20 @@ bool SchemaWithSet::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, 
     return ok;
 }
 
+
+
+
+
 std::set<utility::string_t>& SchemaWithSet::getCertificates()
 {
     return m_Certificates;
 }
 
+
+
+
 void SchemaWithSet::setCertificates(const std::set<utility::string_t>& value)
+
 {
     m_Certificates = value;
     m_CertificatesIsSet = true;
@@ -140,12 +148,18 @@ void SchemaWithSet::unsetCertificates()
 {
     m_CertificatesIsSet = false;
 }
+
+
+
 std::shared_ptr<SchemaWithSet_vaccinationBook> SchemaWithSet::getVaccinationBook() const
 {
     return m_VaccinationBook;
 }
 
+
+
 void SchemaWithSet::setVaccinationBook(const std::shared_ptr<SchemaWithSet_vaccinationBook>& value)
+
 {
     m_VaccinationBook = value;
     m_VaccinationBookIsSet = true;
@@ -160,6 +174,7 @@ void SchemaWithSet::unsetVaccinationBook()
 {
     m_VaccinationBookIsSet = false;
 }
+
 }
 }
 }

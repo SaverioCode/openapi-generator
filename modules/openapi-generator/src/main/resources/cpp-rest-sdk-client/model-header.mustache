@@ -8,6 +8,9 @@
 #ifndef {{modelHeaderGuardPrefix}}_{{classname}}_H_
 #define {{modelHeaderGuardPrefix}}_{{classname}}_H_
 
+{{#hasEnums}}
+#include <stdexcept>
+{{/hasEnums}}
 {{#oneOf}}
 {{#-first}}
 #include <variant>
@@ -146,36 +149,68 @@ public:
     void toMultipart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& namePrefix) const override;
     bool fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const utility::string_t& namePrefix) override;
 
+
     /////////////////////////////////////////////
     /// {{classname}} members
 
-    {{#vars}}
-    {{^isInherited}}
+    {{#vars}}{{^isInherited}}{{#isEnum}}
+    {{#isContainer}}{{#items}}enum class {{{datatypeWithEnum}}}{{/items}}{{/isContainer}}{{^isContainer}}enum class {{{datatypeWithEnum}}}{{/isContainer}}
+    {
+        {{#allowableValues}}{{#enumVars}}{{value}},
+        {{/enumVars}}{{/allowableValues}}
+    };
+
     /// <summary>
     /// {{description}}
     /// </summary>
-    {{#isContainer}}{{{dataType}}}& {{getter}}();
-    {{/isContainer}}{{^isContainer}}{{{dataType}}} {{getter}}() const;
-    {{/isContainer}}bool {{nameInCamelCase}}IsSet() const;
+
+    {{/isEnum}}{{/isInherited}}{{/vars}}
+
+    {{#vars}}{{^isInherited}}{{#isEnum}}
+    {{#isContainer}}{{#items}}
+    {{{datatypeWithEnum}}} to{{datatypeWithEnum}}(const utility::string_t& value) const;
+    const utility::string_t from{{datatypeWithEnum}}(const {{{datatypeWithEnum}}} value) const;
+    {{/items}}{{/isContainer}}
+    {{^isContainer}}
+    {{{datatypeWithEnum}}} to{{datatypeWithEnum}}(const {{dataType}}& value) const;
+    const {{dataType}} from{{datatypeWithEnum}}(const {{{datatypeWithEnum}}} value) const;
+    {{/isContainer}}
+    {{/isEnum}}{{/isInherited}}{{/vars}}
+
+    {{#vars}}{{^isInherited}}
+    {{#isContainer}}{{^isEnum}}
+    {{{dataType}}}& {{getter}}();
+    {{/isEnum}}{{/isContainer}}
+    {{^isContainer}}{{^isEnum}}
+    {{{dataType}}} {{getter}}() const;
+    {{/isEnum}}{{/isContainer}}
+    {{#isEnum}}
+    {{{datatypeWithEnum}}} {{getter}}() const;
+    {{/isEnum}}
+    bool {{nameInCamelCase}}IsSet() const;
     void unset{{name}}();
 
     {{#isPrimitiveType}}
     void {{setter}}({{{dataType}}} value);
     {{/isPrimitiveType}}
-    {{^isPrimitiveType}}
+    {{^isPrimitiveType}}{{^isEnum}}
     void {{setter}}(const {{{dataType}}}& value);
-    {{/isPrimitiveType}}
-
-    {{/isInherited}}
-    {{/vars}}
+    {{/isEnum}}{{/isPrimitiveType}}
+    {{#isEnum}}
+    void {{setter}}(const {{{datatypeWithEnum}}} value);
+    {{/isEnum}}
+    {{/isInherited}}{{/vars}}
 
 protected:
-    {{#vars}}
-    {{^isInherited}}
+    {{#vars}}{{^isInherited}}
+    {{^isEnum}}
     {{{dataType}}} m_{{name}};
+    {{/isEnum}}
+    {{#isEnum}}
+    {{{datatypeWithEnum}}} m_{{name}};
+    {{/isEnum}}
     bool m_{{name}}IsSet;
-    {{/isInherited}}
-    {{/vars}}
+    {{/isInherited}}{{/vars}}
 };
 
 {{/isEnum}}
